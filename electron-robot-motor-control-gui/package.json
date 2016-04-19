@@ -1,0 +1,43 @@
+{
+  "name": "electron-robot-motor-control-gui",
+  "productName": "RosMotorControl",
+  "version": "0.0.1",
+  "description": "Electron GUI to control a 2 wheel car chassis via ROS",
+  "license": "MIT",
+  "repository": "-",
+  "author": {
+    "name": "neumann89",
+    "url": "github.com/neumann89"
+  },
+  "scripts": {
+    "test": "xo",
+    "install": "cmake-js compile",
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --platform=linux --arch=x64 --out=dist --app-version=$npm_package_version --prune --asar --overwrite"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "dependencies": {
+    "electron-debug": "^0.5.0",
+    "bootstrap": "3.3.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^6.0.0",
+    "electron-prebuilt": "0.37.2",
+    "xo": "^0.14.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
+  }
+}

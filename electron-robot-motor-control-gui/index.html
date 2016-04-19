@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Electron boilerplate</title>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="container">
+	<header>
+		<h1>Robot control</h1>
+	</header>
+	<section class="main">
+		<div class="btn-group steering" role="group">
+			<button type="button" class="btn btn-primary">Left</button>
+			<button type="button" class="btn btn-primary">Right</button>
+		</div>
+		<br/>
+		<div class="btn-group velocity" role="group">
+			<button onclick="forward()" type="button" class="btn btn-primary">Forward</button>
+			<button type="button" class="btn btn-danger">Stop</button>
+			<button type="button" class="btn btn-primary">Backward</button>
+		</div>
+		<br/>
+		<p>C++ Addon says:
+			<script>
+				var addon = require('./build/Release/ros_addon');
+				document.write(addon.hello());
+
+				function forward() {
+					console.log('forward clicked')
+					addon.rosForward();
+				}
+			</script>
+		</p>
+	</section>
+	<footer></footer>
+</div>
+</body>
+</html>
