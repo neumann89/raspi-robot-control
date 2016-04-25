@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>motor-control</name>
+  <name>motor_control</name>
   <version>0.0.1</version>
   <description>The motor-control package</description>
 

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="subscriber" pkg="motor_control" type="subscriber.py" />
+</launch>
