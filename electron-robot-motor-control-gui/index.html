@@ -1,41 +1,97 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Electron boilerplate</title>
-	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="index.css">
-</head>
-<body>
-<div class="container">
-	<header>
-		<h1>Robot control</h1>
-	</header>
-	<section class="main">
-		<div class="btn-group steering" role="group">
-			<button type="button" class="btn btn-primary">Left</button>
-			<button type="button" class="btn btn-primary">Right</button>
-		</div>
-		<br/>
-		<div class="btn-group velocity" role="group">
-			<button onclick="forward()" type="button" class="btn btn-primary">Forward</button>
-			<button type="button" class="btn btn-danger">Stop</button>
-			<button type="button" class="btn btn-primary">Backward</button>
-		</div>
-		<br/>
-		<p>C++ Addon says:
-			<script>
-				var addon = require('./build/Release/ros_addon');
-				document.write(addon.hello());
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-				function forward() {
-					console.log('forward clicked')
-					addon.rosForward();
-				}
-			</script>
-		</p>
-	</section>
-	<footer></footer>
+    <title>ROS Robot Control</title>
+
+    <link rel="stylesheet" href="css/roboto-fontface.css" type="text/css">
+    <link rel="stylesheet" href="css/app.css" type="text/css">
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+</head>
+<body ng-app="RobotControlApp" ng-cloak>
+
+<md-toolbar class="md-hue-2">
+    <div class="md-toolbar-tools">
+        <h1 class="md-flex">Robot control</h1>
+    </div>
+</md-toolbar>
+
+<div class="container">
+
+    <section class="main">
+
+        <md-card md-theme="{{ 'default' }}" md-theme-watch>
+            <md-toolbar class="md-hue-2">
+                <div class="md-toolbar-tools">
+                    <h2 class="md-flex">Motor</h2>
+                </div>
+            </md-toolbar>
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Control">
+                    <br/>
+                    <section layout="row" layout-align="center center" layout-wrap>
+                        <md-button onclick="left()" class="md-raised md-primary">Left</md-button>
+                        <md-button onclick="right()" class="md-raised md-primary">Right</md-button>
+                    </section>
+                    <br/>
+                    <section layout="row" layout-align="center center" layout-wrap>
+                        <md-button onclick="forward()" class="md-raised md-primary">Forward</md-button>
+                        <md-button onclick="stop()" class="md-raised md-warn">Stop</md-button>
+                        <md-button onclick="backward()" class="md-raised md-primary">Backward</md-button>
+                    </section>
+                    <br/>
+                </md-tab>
+            </md-tabs>
+        </md-card>
+
+
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-aria/angular-aria.js"></script>
+        <script src="node_modules/angular-animate/angular-animate.js"></script>
+        <script src="node_modules/angular-material/angular-material.js"></script>
+
+        <!-- Application bootstrap  -->
+        <script type="text/javascript">
+            angular.module('RobotControlApp', ['ngMaterial']).config(function ($mdThemingProvider) {
+                $mdThemingProvider.theme('default')
+                        .primaryPalette('blue-grey')
+                        .accentPalette('orange')
+                        .backgroundPalette('blue-grey');
+            });
+
+            var addon = require('./build/Release/ros_addon');
+
+            function forward() {
+                console.log('forward clicked');
+                addon.rosCommand(1);
+            }
+
+            function stop() {
+                console.log('stop clicked');
+                addon.rosCommand(0);
+            }
+
+            function backward() {
+                console.log('backward clicked');
+                addon.rosCommand(2);
+            }
+
+            function left() {
+                console.log('left clicked');
+                addon.rosCommand(3);
+            }
+
+            function right() {
+                console.log('right clicked');
+                addon.rosCommand(4);
+            }
+        </script>
+    </section>
+    <footer></footer>
 </div>
 </body>
 </html>

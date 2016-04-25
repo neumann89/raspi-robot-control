@@ -4,7 +4,7 @@ const electron = require('electron');
 const app = electron.app;
 
 // own c++ addon
-const addon = require('./build/Release/ros_addon');
+// const addon = require('./build/Release/ros_addon');
 
 // report crashes to the Electron project
 // require('crash-reporter').start();
@@ -23,8 +23,8 @@ function onClosed() {
 
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
-		width: 600,
-		height: 400
+		width: 640,
+		height: 480
 	});
 
 	win.loadURL('file://' + __dirname + '/index.html');

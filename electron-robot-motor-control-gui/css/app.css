@@ -1,0 +1,46 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background-color: rgb(55,71,79) !important;
+    background: linear-gradient(rgb(44,60,68), rgb(55,71,79)) !important;
+    color: #c7ddef;
+}
+
+body {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+header {
+    position: absolute;
+    width: 500px;
+    height: 250px;
+    top: 20%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -250px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 60px;
+    font-weight: 400;
+    color: #c7ddef;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    /*position: absolute;*/
+    width: 80%;
+    margin-top: 10%;
+    /*left: 30%;*/
+    /*margin-top: -80px;*/
+    margin-left: auto;
+    margin-right: auto;
+    /*text-align: center;*/
+}
+
+.steering {
+    margin-bottom: 30px;
+}

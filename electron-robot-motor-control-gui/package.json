@@ -1,6 +1,6 @@
 {
   "name": "electron-robot-motor-control-gui",
-  "productName": "RosMotorControl",
+  "productName": "RosRobotControl",
   "version": "0.0.1",
   "description": "Electron GUI to control a 2 wheel car chassis via ROS",
   "license": "MIT",
@@ -26,10 +26,14 @@
   ],
   "dependencies": {
     "electron-debug": "^0.5.0",
-    "bootstrap": "3.3.6"
+    "angular": "1.5.0",
+    "angular-animate": "1.5.0",
+    "angular-aria": "1.5.0",
+    "angular-material": "1.0.7",
+    "angular-messages": "1.5.0"
   },
   "devDependencies": {
-    "electron-packager": "^6.0.0",
+    "electron-packager": "^7.0.0",
     "electron-prebuilt": "0.37.2",
     "xo": "^0.14.0"
   },
