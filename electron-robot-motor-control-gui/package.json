@@ -25,12 +25,13 @@
     "electron"
   ],
   "dependencies": {
-    "electron-debug": "^0.5.0",
     "angular": "1.5.0",
     "angular-animate": "1.5.0",
     "angular-aria": "1.5.0",
     "angular-material": "1.0.7",
-    "angular-messages": "1.5.0"
+    "angular-messages": "1.5.0",
+    "electron-debug": "^0.5.0",
+    "nan": "^2.3.2"
   },
   "devDependencies": {
     "electron-packager": "^7.0.0",
