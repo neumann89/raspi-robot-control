@@ -1,22 +1,23 @@
-// TODO: better use NAN for compability of different node versions
-#include <node.h>
+#include <nan.h>
 #include <sstream>
 #include <iostream>
 #include "ros/ros.h"
+#include <motor_control/Motor.h>
 #include "std_msgs/UInt8.h"
-
-int count = 0;
 
 namespace ros_addon {
 
-    using v8::Exception;
-    using v8::FunctionCallbackInfo;
-    using v8::Isolate;
-    using v8::Local;
+    using v8::FunctionTemplate;
+    using v8::Handle;
     using v8::Object;
     using v8::String;
-    using v8::Value;
+    using Nan::GetFunction;
+    using Nan::New;
+    using Nan::Set;
 
+    int count = 0;
+    double steering = 0.5;
+    double velocity = 0.33;
     ros::Publisher chatter_pub;
     bool rosInitialized = false;
 
@@ -28,24 +29,28 @@ namespace ros_addon {
 
         ros::NodeHandle n;
 
-        chatter_pub = n.advertise<std_msgs::UInt8>("motor", 1000);
+        chatter_pub = n.advertise<motor_control::Motor>("motor", 1000);
 
         rosInitialized = true;
     }
 
-    void MethodROS(const FunctionCallbackInfo <Value> &args) {
-        Isolate *isolate = args.GetIsolate();
+    NAN_METHOD(MethodChangeVelocity) {
+        double value = info[0]->NumberValue();
+        velocity = value;
+        std::cout << "velocity changed: " << velocity << std::endl;
+    }
 
-        // Check the argument type
-        if (!args[0]->IsNumber()) {
-            isolate->ThrowException(Exception::TypeError(
-                    String::NewFromUtf8(isolate, "Wrong arguments")));
-            return;
-        }
+    NAN_METHOD(MethodChangeSteering) {
+        double value = info[0]->NumberValue();
+        steering = value;
+        std::cout << "steering changed: " << steering << std::endl;
+    }
 
-        uint32_t value = args[0]->Uint32Value();
+    NAN_METHOD(MethodROS) {
+        // expect a number as the first argument
+        uint32_t value = info[0]->Uint32Value();
 
-        if(!rosInitialized) {
+        if (!rosInitialized) {
             rosInit();
         }
 
@@ -53,43 +58,44 @@ namespace ros_addon {
         if (ros::master::check()) {
 
             // check, if subscribers are connected
-            ros::Rate poll_rate(100);
+            ros::Rate poll_rate(10);
             while (chatter_pub.getNumSubscribers() == 0) {
                 ROS_WARN("No subscribers! Try again... %i", count);
                 poll_rate.sleep();
                 ++count;
-                if(count > 20) {
+                if (count > 20) {
                     count = 0;
-                    isolate->ThrowException(Exception::Error(
-                            String::NewFromUtf8(isolate, "No subscribers")));
+                    ROS_ERROR("No subscribers!");
                     return;
                 }
             }
 
-            std_msgs::UInt8 msg;
-            msg.data = value;
+            motor_control::Motor msg;
+            msg.command = value;
+            msg.velocity = velocity;
+            msg.steering = steering;
 
-            ROS_INFO("Send command: %i", msg.data);
+            ROS_INFO("Send command: %i", msg.command);
 
             chatter_pub.publish(msg);
             ros::spinOnce();
 
             count = 0;
-            args.GetReturnValue().Set(String::NewFromUtf8(isolate, "ros command published"));
 
-        } else {
-            isolate->ThrowException(Exception::Error(
-                    String::NewFromUtf8(isolate, "Master not running")));
-            return;
         }
 
+        info.GetReturnValue().Set(value);
     }
 
-    void init(Local <Object> exports) {
-        NODE_SET_METHOD(exports, "rosCommand", MethodROS);
-
+    NAN_MODULE_INIT(InitAll) {
+        Set(target, New<String>("rosCommand").ToLocalChecked(),
+            GetFunction(New<FunctionTemplate>(MethodROS)).ToLocalChecked());
+        Set(target, New<String>("changeVelocity").ToLocalChecked(),
+            GetFunction(New<FunctionTemplate>(MethodChangeVelocity)).ToLocalChecked());
+        Set(target, New<String>("changeSteering").ToLocalChecked(),
+            GetFunction(New<FunctionTemplate>(MethodChangeSteering)).ToLocalChecked());
     }
 
-    NODE_MODULE(addon, init);
+    NODE_MODULE(addon, InitAll);
 
 }

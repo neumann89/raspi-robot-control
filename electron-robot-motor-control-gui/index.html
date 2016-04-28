@@ -11,7 +11,7 @@
     <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
 </head>
-<body ng-app="RobotControlApp" ng-cloak>
+<body ng-app="RobotControlApp" ng-controller="AppCtrl" ng-cloak>
 
 <md-toolbar class="md-hue-2">
     <div class="md-toolbar-tools">
@@ -19,7 +19,7 @@
     </div>
 </md-toolbar>
 
-<div class="container">
+<md-slider-container class="container">
 
     <section class="main">
 
@@ -43,6 +43,27 @@
                         <md-button onclick="backward()" class="md-raised md-primary">Backward</md-button>
                     </section>
                     <br/>
+                    <section layout="row" layout-align="center center" layout-wrap>
+                        <md-slider-container style="width: 70%">
+                            <div flex="10" layout layout-align="center center">
+                                <span class="md-body-1">VELOCITY: </span>
+                            </div>
+                            <md-slider flex md-discrete step="1" min="1" max="100" ng-model="velocity"
+                                       ng-change="changeVelocity()" aria-label="velocity">
+                            </md-slider>
+                        </md-slider-container>
+                    </section>
+                    <section layout="row" layout-align="center center" layout-wrap>
+                        <md-slider-container style="width: 70%">
+                            <div flex="10" layout layout-align="center center">
+                                <span class="md-body-1">STEERING: </span>
+                            </div>
+                            <md-slider flex md-discrete step="1" min="1" max="100" ng-model="steering"
+                                       ng-change="changeSteering()" aria-label="steering">
+                            </md-slider>
+                        </md-slider-container>
+                    </section>
+                    <br/>
                 </md-tab>
             </md-tabs>
         </md-card>
@@ -56,42 +77,51 @@
 
         <!-- Application bootstrap  -->
         <script type="text/javascript">
+            var addon = require('./build/Release/ros_addon');
+
             angular.module('RobotControlApp', ['ngMaterial']).config(function ($mdThemingProvider) {
                 $mdThemingProvider.theme('default')
                         .primaryPalette('blue-grey')
                         .accentPalette('orange')
                         .backgroundPalette('blue-grey');
+            }).controller('AppCtrl', function ($scope) {
+                $scope.velocity = 33;
+                $scope.steering = 50;
+                $scope.changeVelocity = function () {
+                    addon.changeVelocity($scope.velocity / 100);
+                };
+                $scope.changeSteering = function () {
+                    addon.changeSteering($scope.steering / 100);
+                };
             });
 
-            var addon = require('./build/Release/ros_addon');
-
             function forward() {
-                console.log('forward clicked');
+                // console.log('forward clicked');
                 addon.rosCommand(1);
             }
 
             function stop() {
-                console.log('stop clicked');
+                // console.log('stop clicked');
                 addon.rosCommand(0);
             }
 
             function backward() {
-                console.log('backward clicked');
+                // console.log('backward clicked');
                 addon.rosCommand(2);
             }
 
             function left() {
-                console.log('left clicked');
+                // console.log('left clicked');
                 addon.rosCommand(3);
             }
 
             function right() {
-                console.log('right clicked');
+                // console.log('right clicked');
                 addon.rosCommand(4);
             }
         </script>
     </section>
     <footer></footer>
-</div>
+    </div>
 </body>
 </html>

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import rospy
-from std_msgs.msg import UInt8
+from motor_control.msg import Motor
 
 def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %i", data.data)
+    rospy.loginfo(rospy.get_caller_id() + "I heard %i,%f,%f", data.command, data.velocity, data.steering)
+    # TODO: GPIO translation
 
 def listener():
 
@@ -14,7 +15,7 @@ def listener():
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
 
-    rospy.Subscriber("motor", UInt8, callback)
+    rospy.Subscriber("motor", Motor, callback)
 
     print("Subscriber started.")
 
