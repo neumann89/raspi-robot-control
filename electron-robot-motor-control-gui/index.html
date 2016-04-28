@@ -19,7 +19,7 @@
     </div>
 </md-toolbar>
 
-<md-slider-container class="container">
+<div class="container">
 
     <section class="main">
 
@@ -45,22 +45,24 @@
                     <br/>
                     <section layout="row" layout-align="center center" layout-wrap>
                         <md-slider-container style="width: 70%">
-                            <div flex="10" layout layout-align="center center">
-                                <span class="md-body-1">VELOCITY: </span>
+                            <div style="width: 100%" layout layout-align="center center">
+                                <span class="md-body-1" style="margin-right: 1em">VELOCITY:</span>
+                                <md-slider flex step="1" min="1" max="100" ng-model="velocity"
+                                           ng-change="changeVelocity()" aria-label="velocity">
+                                </md-slider>
+                                <span class="md-body-1" style="margin-left: 1em">{{velocity}}</span>
                             </div>
-                            <md-slider flex md-discrete step="1" min="1" max="100" ng-model="velocity"
-                                       ng-change="changeVelocity()" aria-label="velocity">
-                            </md-slider>
                         </md-slider-container>
                     </section>
                     <section layout="row" layout-align="center center" layout-wrap>
                         <md-slider-container style="width: 70%">
-                            <div flex="10" layout layout-align="center center">
-                                <span class="md-body-1">STEERING: </span>
+                            <div style="width: 100%" layout layout-align="center center">
+                                <span class="md-body-1" style="margin-right: 1em">STEERING: </span>
+                                <md-slider flex step="1" min="1" max="100" ng-model="steering"
+                                           ng-change="changeSteering()" aria-label="steering">
+                                </md-slider>
+                                <span class="md-body-1" style="margin-left: 1em">{{steering}}</span>
                             </div>
-                            <md-slider flex md-discrete step="1" min="1" max="100" ng-model="steering"
-                                       ng-change="changeSteering()" aria-label="steering">
-                            </md-slider>
                         </md-slider-container>
                     </section>
                     <br/>
@@ -122,6 +124,6 @@
         </script>
     </section>
     <footer></footer>
-    </div>
+</div>
 </body>
 </html>
