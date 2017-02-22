@@ -1,8 +1,6 @@
-#include <nan.h>
-#include <sstream>
-#include <iostream>
-#include "ros/ros.h"
 #include <motor_control/Motor.h>
+#include <nan.h>
+#include "ros/ros.h"
 #include "std_msgs/UInt8.h"
 
 namespace ros_addon {
@@ -98,4 +96,4 @@ namespace ros_addon {
 
     NODE_MODULE(addon, InitAll);
 
-}
+}  // namespace ros_addon

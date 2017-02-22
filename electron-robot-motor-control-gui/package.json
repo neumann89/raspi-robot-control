@@ -9,11 +9,14 @@
     "name": "neumann89",
     "url": "github.com/neumann89"
   },
+  "cmake-js": {
+    "runtime": "electron",
+    "runtimeVersion": "1.4.13"
+  },
   "scripts": {
-    "test": "xo",
-    "install": "cmake-js compile",
+    "build": "cmake-js rebuild",
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --platform=linux --arch=x64 --out=dist --app-version=$npm_package_version --prune --asar --overwrite"
+    "release": "electron-packager . $npm_package_productName --platform=linux --arch=x64 --out=dist --app-version=$npm_package_version --prune --asar --overwrite"
   },
   "files": [
     "index.js",
@@ -30,20 +33,12 @@
     "angular-aria": "1.5.0",
     "angular-material": "1.0.7",
     "angular-messages": "1.5.0",
-    "electron-debug": "^0.5.0",
-    "nan": "^2.3.2"
+    "electron-debug": "0.5.2",
+    "nan": "2.5.1"
   },
   "devDependencies": {
-    "electron-packager": "^7.0.0",
-    "electron-prebuilt": "0.37.2",
-    "cmake-js": "^3.2.1",
-    "xo": "^0.14.0"
-  },
-  "xo": {
-    "esnext": true,
-    "envs": [
-      "node",
-      "browser"
-    ]
+    "cmake-js": "3.4.1",
+    "electron-packager": "7.7.0",
+    "electron-prebuilt": "1.4.13"
   }
 }

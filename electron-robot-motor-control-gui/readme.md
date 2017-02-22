@@ -4,22 +4,27 @@
 
 ![Screenshot](images/screenshot.jpg)
 
-## Dev
+### Download dependencies
 
 ```
 $ npm install
-```
-
-### Run
-
-```
-$ npm start
 ```
 
 ### Build
 
 ```
 $ npm run build
+```
+
+### Run
+
+```
+$ npm run start
+```
+
+### Build standalone binary
+```
+$ npm run release
 ```
 
 Builds the app for OS X, Linux, and Windows, using [electron-packager](https://github.com/electron-userland/electron-packager).

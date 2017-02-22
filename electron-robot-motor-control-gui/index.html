@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +11,14 @@
     <link rel="stylesheet" href="css/app.css" type="text/css">
     <!-- Angular Material style sheet -->
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-aria/angular-aria.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+    <script src="node_modules/angular-material/angular-material.js"></script>
 </head>
+
 <body ng-app="RobotControlApp" ng-controller="AppCtrl" ng-cloak>
 
 <md-toolbar class="md-hue-2">
@@ -70,13 +78,6 @@
             </md-tabs>
         </md-card>
 
-
-        <!-- Angular Material requires Angular.js Libraries -->
-        <script src="node_modules/angular/angular.js"></script>
-        <script src="node_modules/angular-aria/angular-aria.js"></script>
-        <script src="node_modules/angular-animate/angular-animate.js"></script>
-        <script src="node_modules/angular-material/angular-material.js"></script>
-
         <!-- Application bootstrap  -->
         <script type="text/javascript">
             var addon = require('./build/Release/ros_addon');
@@ -126,4 +127,5 @@
     <footer></footer>
 </div>
 </body>
+
 </html>

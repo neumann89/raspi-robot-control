@@ -1,4 +1,9 @@
-node_modules
-/dist
-/build
+node_modules/
+dist/
+build/
 .idea/
+.atom-build.json
+.clang_complete
+.project
+.cproject
+.settings/

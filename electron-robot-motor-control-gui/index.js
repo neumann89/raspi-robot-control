@@ -1,4 +1,4 @@
-//jshint esversion: 6
+// jshint esversion: 6
 'use strict';
 const electron = require('electron');
 const app = electron.app;
