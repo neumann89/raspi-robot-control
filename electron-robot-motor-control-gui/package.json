@@ -1,17 +1,17 @@
 {
   "name": "electron-robot-motor-control-gui",
   "productName": "RosRobotControl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Electron GUI to control a 2 wheel car chassis via ROS",
   "license": "MIT",
-  "repository": "-",
+  "repository": "https://github.com/neumann89/raspi-robot-control",
   "author": {
     "name": "neumann89",
     "url": "github.com/neumann89"
   },
   "cmake-js": {
     "runtime": "electron",
-    "runtimeVersion": "1.4.13"
+    "runtimeVersion": "1.4.15"
   },
   "scripts": {
     "build": "cmake-js rebuild",
@@ -39,6 +39,6 @@
   "devDependencies": {
     "cmake-js": "3.4.1",
     "electron-packager": "7.7.0",
-    "electron-prebuilt": "1.4.13"
+    "electron": "1.4.15"
   }
 }
