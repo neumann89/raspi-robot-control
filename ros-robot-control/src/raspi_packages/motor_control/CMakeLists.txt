@@ -7,6 +7,7 @@ project(motor_control)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  motor_control_msg
   message_generation
 )
 
@@ -44,10 +45,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-   FILES
-   Motor.msg
- )
+#add_message_files(
+#   FILES
+#   Msg.msg
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -64,10 +65,10 @@ add_message_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-   DEPENDENCIES
-   std_msgs
- )
+#generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -101,7 +102,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ros_subscriber
-  CATKIN_DEPENDS rospy message_runtime
+  CATKIN_DEPENDS rospy motor_control_msg message_runtime
 #  DEPENDS system_lib
 )
 

@@ -1,4 +1,4 @@
-#include <motor_control/Motor.h>
+#include <motor_control_msg/Motor.h>
 #include <nan.h>
 #include "ros/ros.h"
 #include "std_msgs/UInt8.h"
@@ -14,8 +14,8 @@ namespace ros_addon {
     using Nan::Set;
 
     int count = 0;
-    double steering = 0.5;
-    double velocity = 0.33;
+    double velocity_left = 50.;
+    double velocity_right = 33.0;
     ros::Publisher chatter_pub;
     bool rosInitialized = false;
 
@@ -27,21 +27,21 @@ namespace ros_addon {
 
         ros::NodeHandle n;
 
-        chatter_pub = n.advertise<motor_control::Motor>("motor", 1000);
+        chatter_pub = n.advertise<motor_control_msg::Motor>("motor", 1000);
 
         rosInitialized = true;
     }
 
     NAN_METHOD(MethodChangeVelocity) {
         double value = info[0]->NumberValue();
-        velocity = value;
-        std::cout << "velocity changed: " << velocity << std::endl;
+        velocity_left = value;
+        std::cout << "velocity_left changed: " << velocity_left << std::endl;
     }
 
     NAN_METHOD(MethodChangeSteering) {
         double value = info[0]->NumberValue();
-        steering = value;
-        std::cout << "steering changed: " << steering << std::endl;
+        velocity_right = value;
+        std::cout << "velocity_right changed: " << velocity_right << std::endl;
     }
 
     NAN_METHOD(MethodROS) {
@@ -68,10 +68,10 @@ namespace ros_addon {
                 }
             }
 
-            motor_control::Motor msg;
+            motor_control_msg::Motor msg;
             msg.command = value;
-            msg.velocity = velocity;
-            msg.steering = steering;
+            msg.velocity_left = velocity_left;
+            msg.velocity_right = velocity_right;
 
             ROS_INFO("Send command: %i", msg.command);
 
